@@ -7,6 +7,8 @@ import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import repository.account.AccountRepositoryMySQL;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,19 @@ public class ClientRepositoryMySQL implements ClientRepository {
         }
 
         return clients;
+    }
+
+    @Override
+    public boolean updateAccount(Long id, Long accountId) throws EntityNotFoundException {
+        try {
+            PreparedStatement insertStatement = connection
+                    .prepareStatement("UPDATE client SET client.account = " + accountId + " WHERE client.id = "+ id);
+            insertStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -135,4 +150,22 @@ public class ClientRepositoryMySQL implements ClientRepository {
                 .setAddress(rs.getString("address"))
                 .setAccount(accountRepository.findById(rs.getLong("id"))).build();
     }
+
+    public void processUtilityBill(Long id, String drain, double amount) throws EntityNotFoundException, IOException {
+        Account account = accountRepository.findById(id);
+        if(account.getBalance() >= amount) {
+            accountRepository.updateBalance(id, account.getBalance() - amount);
+            FileWriter writer = new FileWriter(drain + "_bill_" + id + ".txt");
+            writer.write(amount + " spent on " + drain + " by client " + id + ".");
+            writer.close();
+        }
+        else {
+            FileWriter writer = new FileWriter(drain + "_bill_" + id + ".txt");
+            writer.write("Insufficient funds!");
+            writer.close();
+        }
+
+
+    }
+
 }

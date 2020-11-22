@@ -23,4 +23,7 @@ public interface AccountRepository {
 
     void removeAccount(Long clientId) throws EntityNotFoundException;
 
+    //de la client1 la client2 daca se poate
+    boolean transferMoney(Long clientId1, Long clientId2, double amount) throws EntityNotFoundException;
+
 }

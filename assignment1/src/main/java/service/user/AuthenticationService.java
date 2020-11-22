@@ -12,4 +12,12 @@ public interface AuthenticationService {
 
     boolean logout(User user);
 
+    void remove(User user);
+
+    boolean updateUsername(User user, String newUsername);
+
+    boolean updatePassword(User user, String newPassword);
+
+
+
 }

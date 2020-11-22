@@ -6,6 +6,7 @@ import model.validation.Notification;
 import repository.security.RightsRolesRepository;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static database.Constants.Tables.USER;
@@ -23,7 +24,24 @@ public class UserRepositoryMySQL implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return null;
+        List<User> users = new ArrayList<User>();
+        try {
+            Statement statement = connection.createStatement();
+            String fetchUserSql = "Select * from  user";
+
+            ResultSet userResultSet = statement.executeQuery(fetchUserSql);
+            while (userResultSet.next()) {
+                User user = new UserBuilder()
+                        .setUsername(userResultSet.getString("username"))
+                        .setPassword(userResultSet.getString("password"))
+                        .setRoles(rightsRolesRepository.findRolesForUser(userResultSet.getLong("id")))
+                        .build();
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     @Override
@@ -76,10 +94,47 @@ public class UserRepositoryMySQL implements UserRepository {
     }
 
     @Override
+    public boolean updateUsername(User user, String newUsername) {
+        try {
+            PreparedStatement insertStatement = connection
+                    .prepareStatement("UPDATE user SET user.username = '"+ newUsername + "' WHERE user.username = '"+ user.getUsername()+"'");
+            insertStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updatePassword(User user, String newPassword) {
+        try {
+            PreparedStatement insertStatement = connection
+                    .prepareStatement("UPDATE user SET user.password = '"+ newPassword + "' WHERE user.username = '"+ user.getUsername() + "'");
+            insertStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public void remove(User user) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "DELETE from user where user.username = '" + user.getUsername() + "'";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void removeAll() {
         try {
             Statement statement = connection.createStatement();
-            String sql = "DELETE from user where id >= 0";
+            String sql = "DELETE * from user where id >= 0";
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();

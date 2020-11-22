@@ -4,6 +4,7 @@ import model.Account;
 import model.Client;
 import repository.EntityNotFoundException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ClientRepository {
@@ -22,7 +23,9 @@ public interface ClientRepository {
 
     boolean updateAddress(Long id, String address) throws EntityNotFoundException;
 
+    boolean updateAccount(Long id, Long accountId) throws EntityNotFoundException;
 
+    void processUtilityBill(Long id, String drain, double amount) throws EntityNotFoundException, IOException;
 
 
    

@@ -26,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public boolean save(Long clientId, Account account) {
+    public boolean save(Long clientId, Account account) throws EntityNotFoundException {
         return repository.save(clientId, account);
     }
 

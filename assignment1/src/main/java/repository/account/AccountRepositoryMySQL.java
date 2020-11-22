@@ -5,6 +5,8 @@ import model.Client;
 import model.builder.AccountBuilder;
 import model.builder.ClientBuilder;
 import repository.EntityNotFoundException;
+import repository.client.ClientRepository;
+import repository.client.ClientRepositoryMySQL;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -65,6 +67,7 @@ public class AccountRepositoryMySQL implements AccountRepository {
             insertStatement.setDate(3, new java.sql.Date(account.getBirthday().getTime()));
             insertStatement.setLong(4, clientId);
             insertStatement.executeUpdate();
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,4 +134,17 @@ public class AccountRepositoryMySQL implements AccountRepository {
                 .build();
     }
 
+    public boolean transferMoney(Long clientId1, Long clientId2, double amount) throws EntityNotFoundException {
+        Account account1 = findById(clientId1);
+        Account account2 = findById(clientId2);
+
+        if (account1.getBalance() >= amount) {
+            updateBalance(clientId1, account1.getBalance() - amount);
+            updateBalance(clientId2, account2.getBalance() + amount);
+            return true;
+        }
+
+        return false;
+
+    }
 }

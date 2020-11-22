@@ -13,6 +13,12 @@ public interface UserRepository {
 
     boolean save(User user);
 
+    boolean updateUsername(User user, String newUsername);
+
+    boolean updatePassword(User user, String newPassword);
+
+    void remove(User user);
+
     void removeAll();
 
 }

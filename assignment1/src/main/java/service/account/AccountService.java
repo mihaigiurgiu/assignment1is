@@ -12,7 +12,7 @@ public interface AccountService {
 
     Account findById(Long clientId) throws EntityNotFoundException;
 
-    boolean save(Long clientId, Account account);
+    boolean save(Long clientId, Account account) throws EntityNotFoundException;
 
     boolean updateType(Long clientId, String type) throws EntityNotFoundException;
 

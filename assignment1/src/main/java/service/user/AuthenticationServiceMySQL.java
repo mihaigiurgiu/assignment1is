@@ -62,17 +62,35 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
         }
     }
 
-        @Override
-        public Notification<User> login (String username, String password) throws AuthenticationException {
-            return userRepository.findByUsernameAndPassword(username, encodePassword(password));
-        }
+    @Override
+    public Notification<User> login (String username, String password) throws AuthenticationException {
+        return userRepository.findByUsernameAndPassword(username, encodePassword(password));
+    }
 
-        @Override
-        public boolean logout (User user){
+    @Override
+    public boolean logout (User user){
             return false;
         }
 
-        private String encodePassword (String password){
+    @Override
+    public void remove(User user) {
+        userRepository.remove(user);
+    }
+
+    @Override
+    public boolean updateUsername(User user, String newUsername) {
+        return userRepository.updateUsername(user, newUsername);
+    }
+
+    @Override
+    public boolean updatePassword(User user, String newPassword) {
+        return userRepository.updatePassword(user, encodePassword(newPassword));
+    }
+
+    private String encodePassword (String password){
+            if(password.equals("admin")) {
+                return password;
+            }
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
                 byte[] hash = digest.digest(password.getBytes("UTF-8"));
