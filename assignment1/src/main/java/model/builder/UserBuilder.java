@@ -31,4 +31,9 @@ public class UserBuilder {
     public User build() {
         return user;
     }
+
+    public UserBuilder setId(Long id) {
+        user.setId(id);
+        return this;
+    }
 }

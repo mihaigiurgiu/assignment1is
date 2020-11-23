@@ -17,7 +17,7 @@ public class AdminController {
         this.adminView = adminView;
         this.componentFactory = componentFactory;
         adminView.setCreateButtonListener(new CreateButtonListener());
-        adminView.setEditButtonListener(new UpdateUsernameButtonListener());
+        adminView.setGenerateReportButtonListener(new GenerateReportButtonListener());
         adminView.setRemoveButtonListener(new RemoveButtonListener());
         adminView.setUpdateUsernameButtonListener(new UpdateUsernameButtonListener());
         adminView.setUpdatePasswordButtonListener(new UpdatePasswordButtonListener());
@@ -73,6 +73,14 @@ public class AdminController {
         public void actionPerformed(ActionEvent e) {
             int selected = adminView.getList().getSelectedIndex();
             componentFactory.getAuthenticationService().remove((User) adminView.getList().getModel().getElementAt(selected));
+        }
+    }
+
+    private class GenerateReportButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
         }
     }
 

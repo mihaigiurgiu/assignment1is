@@ -54,6 +54,14 @@ public class ComponentFactory {
         return authenticationService;
     }
 
+    public ClientService getClientService() {
+        return clientService;
+    }
+
+    public AccountService getAccountService() {
+        return accountService;
+    }
+
     public UserRepository getUserRepository() {
         return userRepository;
     }

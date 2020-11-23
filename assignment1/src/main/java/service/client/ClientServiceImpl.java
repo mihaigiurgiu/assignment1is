@@ -4,6 +4,7 @@ import model.Client;
 import repository.EntityNotFoundException;
 import repository.client.ClientRepository;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
@@ -47,5 +48,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean updateAddress(Long id, String address) throws EntityNotFoundException {
         return repository.updateAddress(id, address);
+    }
+
+    @Override
+    public void processUtilityBill(Long id, String drain, double amount) throws EntityNotFoundException, IOException {
+        repository.processUtilityBill(id, drain, amount);
     }
 }

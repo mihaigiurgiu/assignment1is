@@ -22,4 +22,6 @@ public interface AccountService {
 
     void removeAccount(Long clientId) throws EntityNotFoundException;
 
+    boolean transferMoney(Long clientId1, Long clientId2, double amount) throws EntityNotFoundException;
+
 }

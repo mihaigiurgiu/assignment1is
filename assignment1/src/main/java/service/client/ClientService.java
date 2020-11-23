@@ -3,6 +3,7 @@ package service.client;
 import model.Client;
 import repository.EntityNotFoundException;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ClientService {
@@ -20,6 +21,8 @@ public interface ClientService {
     boolean updateCNP(Long id, String CNP) throws EntityNotFoundException;
 
     boolean updateAddress(Long id, String address) throws EntityNotFoundException;
+
+    void processUtilityBill(Long id, String drain, double amount) throws EntityNotFoundException, IOException;
 
 
 }

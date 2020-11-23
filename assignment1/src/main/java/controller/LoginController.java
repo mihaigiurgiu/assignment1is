@@ -1,5 +1,6 @@
 package controller;
 
+import model.Client;
 import model.User;
 import model.validation.Notification;
 import repository.user.AuthenticationException;
@@ -46,14 +47,18 @@ public class LoginController {
                     JOptionPane.showMessageDialog(loginView.getContentPane(), "Login successful!");
                     if(loginView.getUsername().equals(loginView.getPassword()) && loginView.getUsername().equals("admin")) {
                         DefaultListModel<User> users = new DefaultListModel<User>();
-                        for(User user : componentFactory.getUserRepository().findAll()) {
+                        for(User user : componentFactory.getAuthenticationService().findAll()) {
                             users.addElement(user);
                         }
 
                         new AdminController(new AdminView(users), componentFactory);
                     }
                     else {
-                        new UserController(new UserView(), componentFactory);
+                        DefaultListModel<Client> clients = new DefaultListModel<Client>();
+                        for(Client client : componentFactory.getClientService().findAll()) {
+                            clients.addElement(client);
+                        }
+                        new UserController(new UserView(clients), componentFactory);
                     }
                 }
             }

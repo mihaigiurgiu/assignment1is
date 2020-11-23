@@ -4,6 +4,8 @@ import model.User;
 import model.validation.Notification;
 import repository.user.AuthenticationException;
 
+import java.util.List;
+
 public interface AuthenticationService {
 
     Notification<Boolean> register(String username, String password);
@@ -18,6 +20,5 @@ public interface AuthenticationService {
 
     boolean updatePassword(User user, String newPassword);
 
-
-
+    List<User> findAll();
 }

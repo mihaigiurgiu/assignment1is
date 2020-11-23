@@ -11,6 +11,7 @@ import repository.user.UserRepository;
 
 import java.security.MessageDigest;
 import java.util.Collections;
+import java.util.List;
 
 import static database.Constants.Roles.EMPLOYEE;
 import static database.Constants.Roles.ADMINISTRATOR;
@@ -85,6 +86,11 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
     @Override
     public boolean updatePassword(User user, String newPassword) {
         return userRepository.updatePassword(user, encodePassword(newPassword));
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     private String encodePassword (String password){

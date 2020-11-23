@@ -49,4 +49,9 @@ public class AccountServiceImpl implements AccountService {
     public void removeAccount(Long clientId) throws EntityNotFoundException {
         repository.removeAccount(clientId);
     }
+
+    @Override
+    public boolean transferMoney(Long clientId1, Long clientId2, double amount) throws EntityNotFoundException {
+        return repository.transferMoney(clientId1, clientId2, amount);
+    }
 }
