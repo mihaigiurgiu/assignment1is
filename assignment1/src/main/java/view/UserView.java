@@ -17,9 +17,14 @@ public class UserView extends JFrame {
     private JButton editClient;
     private JButton processUtility;
     private JButton transferMoney;
+    private JButton createClient;
 
     private JTextField drain;
     private JTextField amount;
+    private JTextField name;
+    private JTextField icn;
+    private JTextField cnp;
+    private JTextField address;
 
     public UserView(DefaultListModel<Client> clientList) throws HeadlessException {
         setSize(300, 300);
@@ -29,6 +34,11 @@ public class UserView extends JFrame {
         add(clients);
         add(drain);
         add(amount);
+        add(name);
+        add(icn);
+        add(cnp);
+        add(address);
+        add(createClient);
         add(viewClients);
         add(editClient);
         add(processUtility);
@@ -41,10 +51,16 @@ public class UserView extends JFrame {
         clients = new JList(clientList);
         drain = new JTextField();
         amount = new JTextField();
+        name = new JTextField("name");
+        icn = new JTextField("icn");
+        cnp = new JTextField("cnp");
+        address = new JTextField("address");
+
         viewClients = new JButton("View clients");
         editClient = new JButton ("Edit client");
         processUtility = new JButton("Process bill");
         transferMoney = new JButton("Transfer money");
+        createClient = new JButton("Create client");
     }
 
     public String getDrain() {
@@ -53,6 +69,22 @@ public class UserView extends JFrame {
 
     public String getAmount() {
         return amount.getText();
+    }
+
+    public String getName() {
+        return name.getText();
+    }
+
+    public String getICN() {
+        return icn.getText();
+    }
+
+    public String getCNP() {
+        return cnp.getText();
+    }
+
+    public String getAddress() {
+        return address.getText();
     }
 
     public JList getList() {
@@ -75,6 +107,9 @@ public class UserView extends JFrame {
         transferMoney.addActionListener(transferMoneyButtonListener);
     }
 
+    public void setCreateClientButtonListener(ActionListener createClientButtonListener) {
+        createClient.addActionListener(createClientButtonListener);
+    }
 
 
 

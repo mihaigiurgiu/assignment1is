@@ -28,7 +28,7 @@ public class EditClientController {
         editClientView.setUpdateAccountBalanceButtonListener(new UpdateAccountBalanceButtonListener());
         editClientView.setUpdateAccountBirthdayButtonListener(new UpdateAccountBirthdayButtonListener());
         editClientView.setCreateAccountButtonListener(new CreateAccountButtonListener());
-        editClientView.setCreateClientButtonListener(new CreateClientButtonListener());
+      //  editClientView.setCreateClientButtonListener(new CreateClientButtonListener());
         editClientView.setRemoveAccount(new RemoveAccountButtonListener());
     }
 
@@ -140,23 +140,23 @@ public class EditClientController {
 
     }
 
-    private class CreateClientButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            ClientBuilder cb = new ClientBuilder();
-            Client newClient = null;
-
-            newClient = cb.setName(editClientView.getName())
-                          .setIdentityCardNumber(editClientView.getICN())
-                          .setCNP(editClientView.getCNP())
-                          .setAddress(editClientView.getAddress())
-                          .build();
-
-            componentFactory.getClientService().save(newClient);
-        }
-
-    }
+//    private class CreateClientButtonListener implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            ClientBuilder cb = new ClientBuilder();
+//            Client newClient = null;
+//
+//            newClient = cb.setName(editClientView.getName())
+//                          .setIdentityCardNumber(editClientView.getICN())
+//                          .setCNP(editClientView.getCNP())
+//                          .setAddress(editClientView.getAddress())
+//                          .build();
+//
+//            componentFactory.getClientService().save(newClient);
+//        }
+//
+//    }
 
     private class RemoveAccountButtonListener implements ActionListener {
 

@@ -140,7 +140,7 @@ public class ClientRepositoryMySQL implements ClientRepository {
             return false;
         }
     }
-
+    //se renunta la  setAccount si se pune cand fac contu din service altfel nu stiu de vazut la pefeu
     private Client getClientFromResultSet(ResultSet rs) throws SQLException, EntityNotFoundException {
        return new ClientBuilder()
                 .setId(rs.getLong("id"))

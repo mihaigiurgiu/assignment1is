@@ -1,12 +1,9 @@
 package repository.account;
 
 import model.Account;
-import model.Client;
 import model.builder.AccountBuilder;
-import model.builder.ClientBuilder;
 import repository.EntityNotFoundException;
-import repository.client.ClientRepository;
-import repository.client.ClientRepositoryMySQL;
+
 
 import java.sql.*;
 import java.util.ArrayList;

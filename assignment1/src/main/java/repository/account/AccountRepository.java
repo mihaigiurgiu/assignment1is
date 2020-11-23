@@ -1,7 +1,7 @@
 package repository.account;
 
 import model.Account;
-import model.Client;
+
 import repository.EntityNotFoundException;
 
 import java.util.Date;

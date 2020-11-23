@@ -2,6 +2,7 @@ package controller;
 
 import factory.ComponentFactory;
 import model.Client;
+import model.builder.ClientBuilder;
 import repository.EntityNotFoundException;
 import view.EditClientView;
 import view.UserView;
@@ -23,6 +24,7 @@ public class UserController {
         userView.setEditClientButtonListener(new EditClientButtonListener());
         userView.setProcessUtilityButtonListener(new ProcessUtilityButtonListener());
         userView.setTransferMoneyButtonListener(new TransferMoneyButtonListener());
+        userView.setCreateClientButtonListener(new CreateClientActionListener());
     }
 
     private class ViewClientsButtonListener implements ActionListener {
@@ -81,6 +83,22 @@ public class UserController {
             }
         }
 
+    }
+
+    private class CreateClientActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ClientBuilder cb = new ClientBuilder();
+
+            Client newClient = cb.setName(userView.getName())
+                    .setIdentityCardNumber(userView.getICN())
+                    .setCNP(userView.getCNP())
+                    .setAddress(userView.getAddress())
+                    .build();
+
+            componentFactory.getClientService().save(newClient);
+        }
     }
 
 }
