@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="repository.client.ClientRepositoryMySQLTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-11-25T18:58:38" hostname="DESKTOP-LHENT3I" time="0.053">
+  <properties/>
+  <testcase name="findAll" classname="repository.client.ClientRepositoryMySQLTest" time="0.016"/>
+  <testcase name="findById" classname="repository.client.ClientRepositoryMySQLTest" time="0.017"/>
+  <testcase name="updateName" classname="repository.client.ClientRepositoryMySQLTest" time="0.01"/>
+  <testcase name="save" classname="repository.client.ClientRepositoryMySQLTest" time="0.003"/>
+  <testcase name="findAllWhenDbNotEmpty" classname="repository.client.ClientRepositoryMySQLTest" time="0.007"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
