@@ -31,22 +31,31 @@ public class UserValidator {
         return errors.isEmpty();
     }
 
-    private void validateUsername(String username) {
+    public boolean validateUsername(String username) {
         if (!Pattern.compile(EMAIL_VALIDATION_REGEX).matcher(username).matches()) {
             errors.add("Invalid email!");
+            return false;
         }
+        return true;
     }
 
-    private void validatePassword(String password) {
+    public boolean validatePassword(String password) {
+        boolean check1, check2, check3;
+        check1 = check2 = check3 = true;
+
         if (password.length() < MIN_PASSWORD_LENGTH) {
             errors.add("Password too short!");
+            check1 = false;
         }
         if (!containsSpecialCharacter(password)) {
             errors.add("Password must contain at least one special character!");
+            check2 = false;
         }
         if (!containsDigit(password)) {
             errors.add("Password must contain at least one number!");
+            check3 = false;
         }
+        return check1 && check2 && check3;
     }
 
     private boolean containsSpecialCharacter(String s) {

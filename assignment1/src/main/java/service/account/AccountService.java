@@ -1,6 +1,7 @@
 package service.account;
 
 import model.Account;
+import model.validation.Notification;
 import repository.EntityNotFoundException;
 
 import java.util.Date;
@@ -12,13 +13,13 @@ public interface AccountService {
 
     Account findById(Long clientId) throws EntityNotFoundException;
 
-    boolean save(Long clientId, Account account) throws EntityNotFoundException;
+    Notification<Boolean> save(Long clientId, Account account) throws EntityNotFoundException;
 
-    boolean updateType(Long clientId, String type) throws EntityNotFoundException;
+    Notification<Boolean> updateType(Long clientId, String type) throws EntityNotFoundException;
 
-    boolean updateBalance(Long clientId, double sum) throws EntityNotFoundException;
+    Notification<Boolean> updateBalance(Long clientId, double sum) throws EntityNotFoundException;
 
-    boolean updateBirthday(Long clientId, Date birthday) throws EntityNotFoundException;
+    Notification<Boolean> updateBirthday(Long clientId, Date birthday) throws EntityNotFoundException;
 
     void removeAccount(Long clientId) throws EntityNotFoundException;
 

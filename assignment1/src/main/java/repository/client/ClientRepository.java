@@ -2,6 +2,7 @@ package repository.client;
 
 import model.Account;
 import model.Client;
+import model.validation.Notification;
 import repository.EntityNotFoundException;
 
 import java.io.IOException;

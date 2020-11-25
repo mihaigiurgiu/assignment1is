@@ -3,6 +3,7 @@ package controller;
 import factory.ComponentFactory;
 import model.Client;
 import model.builder.ClientBuilder;
+import model.validation.Notification;
 import repository.EntityNotFoundException;
 import view.EditClientView;
 import view.UserView;
@@ -48,7 +49,7 @@ public class UserController {
         public void actionPerformed(ActionEvent e) {
             int selected = userView.getList().getSelectedIndex();
             Client client = (Client) userView.getList().getModel().getElementAt(selected);
-            new EditClientView(client);
+            new EditClientController(new EditClientView(client), componentFactory);
         }
     }
 
@@ -97,7 +98,18 @@ public class UserController {
                     .setAddress(userView.getAddress())
                     .build();
 
-            componentFactory.getClientService().save(newClient);
+            Notification<Boolean> createClientNotification = componentFactory.getClientService().save(newClient);
+            if(createClientNotification.hasErrors()) {
+                JOptionPane.showMessageDialog(userView.getContentPane(), createClientNotification.getFormattedErrors());
+            }
+            else {
+                if(!createClientNotification.getResult()) {
+                    JOptionPane.showMessageDialog(userView.getContentPane(), "error creating client");
+                }
+                else {
+                    JOptionPane.showMessageDialog(userView.getContentPane(), "Client creation successful");
+                }
+            }
         }
     }
 

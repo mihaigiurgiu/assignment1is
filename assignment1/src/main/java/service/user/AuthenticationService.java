@@ -16,9 +16,9 @@ public interface AuthenticationService {
 
     void remove(User user);
 
-    boolean updateUsername(User user, String newUsername);
+    Notification<Boolean> updateUsername(User user, String newUsername);
 
-    boolean updatePassword(User user, String newPassword);
+    Notification<Boolean> updatePassword(User user, String newPassword);
 
     List<User> findAll();
 }

@@ -79,13 +79,37 @@ public class AuthenticationServiceMySQL implements AuthenticationService {
     }
 
     @Override
-    public boolean updateUsername(User user, String newUsername) {
-        return userRepository.updateUsername(user, newUsername);
+    public Notification<Boolean> updateUsername(User user, String newUsername) {
+        UserValidator uv = new UserValidator(new User());
+        boolean usernameValid = uv.validateUsername(newUsername);
+        Notification<Boolean> updateUsernameNotification = new Notification<>();
+
+        if(!usernameValid) {
+            uv.getErrors().forEach(updateUsernameNotification::addError);
+            updateUsernameNotification.setResult(Boolean.FALSE);
+        }
+        else {
+            updateUsernameNotification.setResult(userRepository.updateUsername(user, newUsername));
+        }
+
+        return updateUsernameNotification;
     }
 
     @Override
-    public boolean updatePassword(User user, String newPassword) {
-        return userRepository.updatePassword(user, encodePassword(newPassword));
+    public Notification<Boolean> updatePassword(User user, String newPassword) {
+        UserValidator uv = new UserValidator(new User());
+        boolean passwordValid = uv.validatePassword(newPassword);
+        Notification<Boolean> updatePasswordNotification = new Notification<>();
+
+        if(!passwordValid) {
+            uv.getErrors().forEach(updatePasswordNotification::addError);
+            updatePasswordNotification.setResult(Boolean.FALSE);
+        }
+        else {
+            updatePasswordNotification.setResult(userRepository.updatePassword(user, encodePassword(newPassword)));
+        }
+
+        return updatePasswordNotification;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package service.client;
 
 import model.Client;
+import model.validation.Notification;
 import repository.EntityNotFoundException;
 
 import java.io.IOException;
@@ -12,15 +13,15 @@ public interface ClientService {
 
     Client findById(Long id) throws EntityNotFoundException;
 
-    boolean save(Client client);
+    Notification<Boolean> save(Client client);
 
-    boolean updateName(Long id, String name) throws EntityNotFoundException;
+    Notification<Boolean> updateName(Long id, String name) throws EntityNotFoundException;
 
-    boolean updateIdentityCardNumber(Long id, String icn) throws EntityNotFoundException;
+    Notification<Boolean> updateIdentityCardNumber(Long id, String icn) throws EntityNotFoundException;
 
-    boolean updateCNP(Long id, String CNP) throws EntityNotFoundException;
+    Notification<Boolean> updateCNP(Long id, String CNP) throws EntityNotFoundException;
 
-    boolean updateAddress(Long id, String address) throws EntityNotFoundException;
+    Notification<Boolean> updateAddress(Long id, String address) throws EntityNotFoundException;
 
     void processUtilityBill(Long id, String drain, double amount) throws EntityNotFoundException, IOException;
 

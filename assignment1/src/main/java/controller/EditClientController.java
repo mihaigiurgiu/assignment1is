@@ -2,9 +2,7 @@ package controller;
 
 import factory.ComponentFactory;
 import model.Account;
-import model.Client;
 import model.builder.AccountBuilder;
-import model.builder.ClientBuilder;
 import repository.EntityNotFoundException;
 import view.EditClientView;
 
@@ -115,6 +113,7 @@ public class EditClientController {
             }
         }
     }
+    //nu se face din anumite motive
 
     private class CreateAccountButtonListener implements ActionListener {
 
@@ -124,7 +123,7 @@ public class EditClientController {
             Account newAccount = null;
             try {
                 newAccount = ab.setType(editClientView.getAccountType())
-                               .setBalance(Double.valueOf(editClientView.getAccountBalance()))
+                               .setBalance(Double.parseDouble(editClientView.getAccountBalance()))
                                .setBirthday(new SimpleDateFormat("dd/MM/yyyy").parse(editClientView.getAccountBirthday()))
                                .build();
             } catch (ParseException parseException) {
@@ -136,6 +135,7 @@ public class EditClientController {
             } catch (EntityNotFoundException entityNotFoundException) {
                 entityNotFoundException.printStackTrace();
             }
+
         }
 
     }

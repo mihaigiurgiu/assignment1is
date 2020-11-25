@@ -1,8 +1,13 @@
 package service.account;
 
 import model.Account;
+import model.Client;
+import model.validation.AccountValidator;
+import model.validation.ClientValidator;
+import model.validation.Notification;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
+import repository.client.ClientRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -10,9 +15,11 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository repository;
+    private final ClientRepository clientRepository;
 
-    public AccountServiceImpl(AccountRepository repository) {
+    public AccountServiceImpl(AccountRepository repository, ClientRepository clientRepository) {
         this.repository = repository;
+        this.clientRepository = clientRepository;
     }
 
     @Override
@@ -25,24 +32,71 @@ public class AccountServiceImpl implements AccountService {
         return repository.findById(clientId);
     }
 
+    //repository.save(clientId, account) && clientRepository.updateAccount(clientId, repository.findById(clientId).getId())
+
     @Override
-    public boolean save(Long clientId, Account account) throws EntityNotFoundException {
-        return repository.save(clientId, account);
+    public Notification<Boolean> save(Long clientId, Account account) throws EntityNotFoundException {
+        AccountValidator av = new AccountValidator(account);
+        boolean accountValid = av.validate();
+        Notification<Boolean> createAccountNotification = new Notification<>();
+
+        if(!accountValid) {
+            av.getErrors().forEach(createAccountNotification::addError);
+            createAccountNotification.setResult(Boolean.FALSE);
+        }
+        else {
+            createAccountNotification.setResult(repository.save(clientId, account) && clientRepository.updateAccount(clientId, repository.findById(clientId).getId()));
+        }
+
+        return createAccountNotification;
     }
 
     @Override
-    public boolean updateType(Long clientId, String type) throws EntityNotFoundException {
-        return repository.updateType(clientId, type);
+    public Notification<Boolean> updateType(Long clientId, String type) throws EntityNotFoundException {
+        AccountValidator av = new AccountValidator(new Account());
+        boolean typeValid = av.validateType(type);
+        Notification<Boolean> updateTypeNotification = new Notification<>();
+
+        if(!typeValid) {
+            av.getErrors().forEach(updateTypeNotification::addError);
+            updateTypeNotification.setResult(Boolean.FALSE);
+        }
+        else {
+            updateTypeNotification.setResult(repository.updateType(clientId, type));
+        }
+        return updateTypeNotification;
     }
 
     @Override
-    public boolean updateBalance(Long clientId, double sum) throws EntityNotFoundException {
-        return repository.updateBalance(clientId, sum);
+    public Notification<Boolean> updateBalance(Long clientId, double sum) throws EntityNotFoundException {
+        AccountValidator av = new AccountValidator(new Account());
+        boolean balanceValid = av.validateBalance(sum);
+        Notification<Boolean> updateBalanceNotification = new Notification<>();
+
+        if(!balanceValid) {
+            av.getErrors().forEach(updateBalanceNotification::addError);
+            updateBalanceNotification.setResult(Boolean.FALSE);
+        }
+        else {
+            updateBalanceNotification.setResult(repository.updateBalance(clientId, sum));
+        }
+        return updateBalanceNotification;
     }
 
     @Override
-    public boolean updateBirthday(Long clientId, Date birthday) throws EntityNotFoundException {
-        return repository.updateBirthday(clientId, birthday);
+    public Notification<Boolean> updateBirthday(Long clientId, Date birthday) throws EntityNotFoundException {
+        AccountValidator av = new AccountValidator(new Account());
+        boolean birthdayValid = av.validateBirthday(birthday);
+        Notification<Boolean> updateBirthdayNotification = new Notification<>();
+
+        if(!birthdayValid) {
+            av.getErrors().forEach(updateBirthdayNotification::addError);
+            updateBirthdayNotification.setResult(Boolean.FALSE);
+        }
+        else {
+            updateBirthdayNotification.setResult(repository.updateBirthday(clientId, birthday));
+        }
+        return updateBirthdayNotification;
     }
 
     @Override

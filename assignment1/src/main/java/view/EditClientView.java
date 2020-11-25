@@ -144,7 +144,7 @@ public class EditClientView extends JFrame {
 //    }
 
     public void setCreateAccountButtonListener(ActionListener createAccountButtonListener) {
-        updateName.addActionListener(createAccountButtonListener);
+        createAccount.addActionListener(createAccountButtonListener);
     }
 
     public void setRemoveAccount(ActionListener removeAccountButtonListener) {

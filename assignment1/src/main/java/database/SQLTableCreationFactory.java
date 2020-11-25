@@ -11,7 +11,7 @@ public class SQLTableCreationFactory {
                         "  id int(11) NOT NULL AUTO_INCREMENT," +
                         "  name varchar(500) NOT NULL," +
                         "  identityCardNumber varchar(500) NOT NULL," +
-                        "  CNP varchar(10) NOT NULL," +
+                        "  CNP varchar(13) NOT NULL," +
                         "  address varchar(500) NOT NULL," +
                         "  account int(11)," +
                         "  PRIMARY KEY (id)," +

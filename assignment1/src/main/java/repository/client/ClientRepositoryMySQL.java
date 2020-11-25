@@ -3,6 +3,7 @@ package repository.client;
 import model.Account;
 import model.Client;
 import model.builder.ClientBuilder;
+import model.validation.Notification;
 import repository.EntityNotFoundException;
 import repository.account.AccountRepository;
 import repository.account.AccountRepositoryMySQL;
@@ -148,24 +149,21 @@ public class ClientRepositoryMySQL implements ClientRepository {
                 .setIdentityCardNumber(rs.getString("identityCardNumber"))
                 .setCNP(rs.getString("CNP"))
                 .setAddress(rs.getString("address"))
-                .setAccount(accountRepository.findById(rs.getLong("id"))).build();
+                //.setAccount(rs.getInt("account"))
+                .build();
     }
 
     public void processUtilityBill(Long id, String drain, double amount) throws EntityNotFoundException, IOException {
         Account account = accountRepository.findById(id);
+        FileWriter writer = new FileWriter(drain + "_bill_" + id + ".txt");
         if(account.getBalance() >= amount) {
             accountRepository.updateBalance(id, account.getBalance() - amount);
-            FileWriter writer = new FileWriter(drain + "_bill_" + id + ".txt");
             writer.write(amount + " spent on " + drain + " by client " + id + ".");
-            writer.close();
         }
         else {
-            FileWriter writer = new FileWriter(drain + "_bill_" + id + ".txt");
             writer.write("Insufficient funds!");
-            writer.close();
         }
-
-
+        writer.close();
     }
 
 }

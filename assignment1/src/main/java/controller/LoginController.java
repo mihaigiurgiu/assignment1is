@@ -50,7 +50,6 @@ public class LoginController {
                         for(User user : componentFactory.getAuthenticationService().findAll()) {
                             users.addElement(user);
                         }
-
                         new AdminController(new AdminView(users), componentFactory);
                     }
                     else {
