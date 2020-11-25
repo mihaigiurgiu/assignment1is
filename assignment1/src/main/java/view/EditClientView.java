@@ -19,7 +19,6 @@ public class EditClientView extends JFrame {
     private JButton updateAccountType;
     private JButton updateAccountBalance;
     private JButton updateAccountBirthday;
- //   private JButton createClient;
     private JButton createAccount;
     private JButton removeAccount;
 
@@ -36,6 +35,7 @@ public class EditClientView extends JFrame {
         setLocationRelativeTo(null);
         initializeFields(client);
         setLayout(new BoxLayout(getContentPane(), Y_AXIS));
+
         add(name);
         add(ICN);
         add(CNP);
@@ -51,7 +51,6 @@ public class EditClientView extends JFrame {
         add(updateAccountBalance);
         add(updateAccountBirthday);
         add(removeAccount);
-       // add(createClient);
         add(createAccount);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -74,7 +73,6 @@ public class EditClientView extends JFrame {
         updateAccountType = new JButton("Update account type");
         updateAccountBalance = new JButton("Update account balance");
         updateAccountBirthday = new JButton("Update account birthday");
-       // createClient = new JButton("Create client");
         createAccount = new JButton("Create account");
         removeAccount = new JButton("Remove account");
     }
@@ -138,10 +136,6 @@ public class EditClientView extends JFrame {
     public void setUpdateAccountBirthdayButtonListener(ActionListener updateAccountBirthdayButtonListener) {
         updateAccountBirthday.addActionListener(updateAccountBirthdayButtonListener);
     }
-
-//    public void setCreateClientButtonListener(ActionListener createClientButtonListener) {
-//        createClient.addActionListener(createClientButtonListener);
-//    }
 
     public void setCreateAccountButtonListener(ActionListener createAccountButtonListener) {
         createAccount.addActionListener(createAccountButtonListener);

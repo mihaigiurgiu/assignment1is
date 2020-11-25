@@ -13,15 +13,18 @@ import view.ViewClients;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class UserController {
     private final UserView userView;
     private final ComponentFactory componentFactory;
+    private String log;
 
     public UserController(UserView userView, ComponentFactory componentFactory) {
         this.userView = userView;
         this.componentFactory = componentFactory;
+        log = "";
         userView.setViewClientsButtonListener(new ViewClientsButtonListener());
         userView.setEditClientButtonListener(new EditClientButtonListener());
         userView.setProcessUtilityButtonListener(new ProcessUtilityButtonListener());
@@ -52,6 +55,9 @@ public class UserController {
             int selected = userView.getList().getSelectedIndex();
             Client client = (Client) userView.getList().getModel().getElementAt(selected);
             new EditClientController(new EditClientView(client), componentFactory);
+
+            String update = userView.getLog() + "\nedited a client's info";
+            userView.setLog(update);
         }
     }
 
@@ -69,6 +75,8 @@ public class UserController {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
+            String update = userView.getLog() + "\nprocessed an utility bill";
+            userView.setLog(update);
         }
 
     }
@@ -92,6 +100,8 @@ public class UserController {
             else {
                 JOptionPane.showMessageDialog(userView.getContentPane(), "insufficient funds!");
             }
+            String update = userView.getLog() + "\ntransferred money";
+            userView.setLog(update);
         }
 
     }
@@ -120,6 +130,8 @@ public class UserController {
                     JOptionPane.showMessageDialog(userView.getContentPane(), "Client creation successful");
                 }
             }
+            String update = userView.getLog() + "\ncreated a client";
+            userView.setLog(update);
         }
     }
 
@@ -127,6 +139,17 @@ public class UserController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            FileWriter fileWriter = null;
+            try {
+                fileWriter = new FileWriter("report.txt");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            try {
+                fileWriter.write(userView.getLog());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             new LoginController(new LoginView(), componentFactory);
             userView.dispose();
         }

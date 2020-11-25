@@ -88,7 +88,5 @@ public class AdminView extends JFrame {
         return users;
     }
 
-
-
 }
 

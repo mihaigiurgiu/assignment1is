@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 
 import static javax.swing.BoxLayout.Y_AXIS;
 
-
 public class UserView extends JFrame {
 
     private JList clients;
@@ -26,12 +25,14 @@ public class UserView extends JFrame {
     private JTextField icn;
     private JTextField cnp;
     private JTextField address;
+    private String log;
 
-    public UserView(DefaultListModel<Client> clientList) throws HeadlessException {
+    public UserView(DefaultListModel<Client> clientList, String log) throws HeadlessException {
         setSize(300, 500);
         setLocationRelativeTo(null);
         initializeFields(clientList);
         setLayout(new BoxLayout(getContentPane(), Y_AXIS));
+        this.log = log;
         add(clients);
         add(drain);
         add(amount);
@@ -63,7 +64,7 @@ public class UserView extends JFrame {
         processUtility = new JButton("Process bill");
         transferMoney = new JButton("Transfer money");
         createClient = new JButton("Create client");
-        logout = new JButton("logout");
+        logout = new JButton("Logout");
     }
 
     public String getDrain() {
@@ -120,6 +121,14 @@ public class UserView extends JFrame {
 
     public void setList(JList list) {
         this.clients = list;
+    }
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
     }
 
 

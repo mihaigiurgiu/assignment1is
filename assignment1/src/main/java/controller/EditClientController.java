@@ -28,7 +28,6 @@ public class EditClientController {
         editClientView.setUpdateAccountBalanceButtonListener(new UpdateAccountBalanceButtonListener());
         editClientView.setUpdateAccountBirthdayButtonListener(new UpdateAccountBirthdayButtonListener());
         editClientView.setCreateAccountButtonListener(new CreateAccountButtonListener());
-      //  editClientView.setCreateClientButtonListener(new CreateClientButtonListener());
         editClientView.setRemoveAccount(new RemoveAccountButtonListener());
     }
 
@@ -46,14 +45,12 @@ public class EditClientController {
                 JOptionPane.showMessageDialog(editClientView.getContentPane(), updateNameNotification.getFormattedErrors());
             }
             else {
-                if(!updateNameNotification.getResult()) {
+                if (!updateNameNotification.getResult()) {
                     JOptionPane.showMessageDialog(editClientView.getContentPane(), "failed updating name");
-                }
-                else {
+                } else {
                     JOptionPane.showMessageDialog(editClientView.getContentPane(), "successfully updated name");
                 }
             }
-
         }
     }
 
@@ -78,7 +75,6 @@ public class EditClientController {
                     JOptionPane.showMessageDialog(editClientView.getContentPane(), "successfully updated CNP");
                 }
             }
-
         }
     }
 
@@ -127,7 +123,6 @@ public class EditClientController {
                     JOptionPane.showMessageDialog(editClientView.getContentPane(), "successfully updated address");
                 }
             }
-
         }
     }
 
@@ -201,6 +196,7 @@ public class EditClientController {
                 }
             }
         }
+
     }
 
     private class CreateAccountButtonListener implements ActionListener {
@@ -242,24 +238,6 @@ public class EditClientController {
         }
 
     }
-
-//    private class CreateClientButtonListener implements ActionListener {
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            ClientBuilder cb = new ClientBuilder();
-//            Client newClient = null;
-//
-//            newClient = cb.setName(editClientView.getName())
-//                          .setIdentityCardNumber(editClientView.getICN())
-//                          .setCNP(editClientView.getCNP())
-//                          .setAddress(editClientView.getAddress())
-//                          .build();
-//
-//            componentFactory.getClientService().save(newClient);
-//        }
-//
-//    }
 
     private class RemoveAccountButtonListener implements ActionListener {
 

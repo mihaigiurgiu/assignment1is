@@ -48,8 +48,6 @@ public class AdminController {
                 }
             }
 
-            SwingUtilities.updateComponentTreeUI(adminView);
-
         }
     }
 
@@ -72,8 +70,6 @@ public class AdminController {
                     JOptionPane.showMessageDialog(adminView.getContentPane(), "successfully updated username");
                 }
             }
-
-            SwingUtilities.updateComponentTreeUI(adminView);
         }
 
     }
@@ -97,8 +93,6 @@ public class AdminController {
                     JOptionPane.showMessageDialog(adminView.getContentPane(), "successfully updated password");
                 }
             }
-
-            SwingUtilities.updateComponentTreeUI(adminView);
         }
 
     }

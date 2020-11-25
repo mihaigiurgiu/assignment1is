@@ -33,11 +33,7 @@ public class ViewClients extends JFrame {
             data[i][5] = account.getType();
             data[i][6] = String.valueOf(account.getBalance());
             data[i][7] = String.valueOf(account.getBirthday());
-         //   }
-
-             // data[i][5] = data[i][6] = data[i][7] = "";
         }
-        //}
 
         allClients = new JTable(data, columnNames);
         DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)allClients.getDefaultRenderer(Object.class);

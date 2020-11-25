@@ -58,7 +58,8 @@ public class LoginController {
                         for(Client client : componentFactory.getClientService().findAll()) {
                             clients.addElement(client);
                         }
-                        new UserController(new UserView(clients), componentFactory);
+
+                        new UserController(new UserView(clients, loginView.getUsername()), componentFactory);
                         loginView.dispose();
                     }
                 }
