@@ -6,6 +6,7 @@ import model.builder.ClientBuilder;
 import model.validation.Notification;
 import repository.EntityNotFoundException;
 import view.EditClientView;
+import view.LoginView;
 import view.UserView;
 import view.ViewClients;
 
@@ -26,6 +27,7 @@ public class UserController {
         userView.setProcessUtilityButtonListener(new ProcessUtilityButtonListener());
         userView.setTransferMoneyButtonListener(new TransferMoneyButtonListener());
         userView.setCreateClientButtonListener(new CreateClientActionListener());
+        userView.setLogoutButtonListener(new LogoutButtonListener());
     }
 
     private class ViewClientsButtonListener implements ActionListener {
@@ -61,6 +63,7 @@ public class UserController {
             Client client = (Client) userView.getList().getModel().getElementAt(selected);
             try {
                 componentFactory.getClientService().processUtilityBill(client.getId(), userView.getDrain(), Double.parseDouble(userView.getAmount()));
+                JOptionPane.showMessageDialog(userView.getContentPane(), "Bill generated");
             } catch (EntityNotFoundException entityNotFoundException) {
                 entityNotFoundException.printStackTrace();
             } catch (IOException ioException) {
@@ -77,10 +80,17 @@ public class UserController {
             int[] selected = userView.getList().getSelectedIndices();
             Client client1 = (Client) userView.getList().getModel().getElementAt(selected[0]);
             Client client2 = (Client) userView.getList().getModel().getElementAt(selected[1]);
+            boolean done = false;
             try {
-                componentFactory.getAccountService().transferMoney(client1.getId(), client2.getId(), Double.parseDouble(userView.getAmount()));
+                done = componentFactory.getAccountService().transferMoney(client1.getId(), client2.getId(), Double.parseDouble(userView.getAmount()));
             } catch (EntityNotFoundException entityNotFoundException) {
                 entityNotFoundException.printStackTrace();
+            }
+            if(done) {
+                JOptionPane.showMessageDialog(userView.getContentPane(), "great success");
+            }
+            else {
+                JOptionPane.showMessageDialog(userView.getContentPane(), "insufficient funds!");
             }
         }
 
@@ -110,6 +120,15 @@ public class UserController {
                     JOptionPane.showMessageDialog(userView.getContentPane(), "Client creation successful");
                 }
             }
+        }
+    }
+
+    private class LogoutButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new LoginController(new LoginView(), componentFactory);
+            userView.dispose();
         }
     }
 

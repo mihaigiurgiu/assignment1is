@@ -32,7 +32,7 @@ public class EditClientView extends JFrame {
     private JTextField accountBirthday;
 
     public EditClientView(Client client) throws HeadlessException {
-        setSize(300, 300);
+        setSize(300, 600);
         setLocationRelativeTo(null);
         initializeFields(client);
         setLayout(new BoxLayout(getContentPane(), Y_AXIS));
@@ -53,18 +53,18 @@ public class EditClientView extends JFrame {
         add(removeAccount);
        // add(createClient);
         add(createAccount);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
     }
 
     private void initializeFields(Client client) {
-        name = new JTextField();
-        ICN = new JTextField();
-        CNP = new JTextField();
-        address = new JTextField();
-        accountType = new JTextField();
-        accountBalance = new JTextField();
-        accountBirthday = new JTextField();
+        name = new JTextField("name");
+        ICN = new JTextField("identity card number");
+        CNP = new JTextField("cnp");
+        address = new JTextField("address");
+        accountType = new JTextField("account type");
+        accountBalance = new JTextField("balance");
+        accountBirthday = new JTextField("account birthday");
         this.client = client;
 
         updateName = new JButton("Update name");

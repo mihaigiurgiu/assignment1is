@@ -18,6 +18,7 @@ public class UserView extends JFrame {
     private JButton processUtility;
     private JButton transferMoney;
     private JButton createClient;
+    private JButton logout;
 
     private JTextField drain;
     private JTextField amount;
@@ -27,7 +28,7 @@ public class UserView extends JFrame {
     private JTextField address;
 
     public UserView(DefaultListModel<Client> clientList) throws HeadlessException {
-        setSize(300, 300);
+        setSize(300, 500);
         setLocationRelativeTo(null);
         initializeFields(clientList);
         setLayout(new BoxLayout(getContentPane(), Y_AXIS));
@@ -43,14 +44,15 @@ public class UserView extends JFrame {
         add(editClient);
         add(processUtility);
         add(transferMoney);
+        add(logout);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
     private void initializeFields(DefaultListModel<Client> clientList) {
         clients = new JList(clientList);
-        drain = new JTextField();
-        amount = new JTextField();
+        drain = new JTextField("drain");
+        amount = new JTextField("amount");
         name = new JTextField("name");
         icn = new JTextField("icn");
         cnp = new JTextField("cnp");
@@ -61,6 +63,7 @@ public class UserView extends JFrame {
         processUtility = new JButton("Process bill");
         transferMoney = new JButton("Transfer money");
         createClient = new JButton("Create client");
+        logout = new JButton("logout");
     }
 
     public String getDrain() {
@@ -111,6 +114,13 @@ public class UserView extends JFrame {
         createClient.addActionListener(createClientButtonListener);
     }
 
+    public void setLogoutButtonListener(ActionListener logoutButtonListener) {
+        logout.addActionListener(logoutButtonListener);
+    }
+
+    public void setList(JList list) {
+        this.clients = list;
+    }
 
 
 }

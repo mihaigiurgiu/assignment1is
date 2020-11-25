@@ -50,7 +50,8 @@ public class LoginController {
                         for(User user : componentFactory.getAuthenticationService().findAll()) {
                             users.addElement(user);
                         }
-                        new AdminController(new AdminView(users), componentFactory);
+                        new AdminController(new AdminView(users), loginView, componentFactory);
+                        loginView.dispose();
                     }
                     else {
                         DefaultListModel<Client> clients = new DefaultListModel<Client>();
@@ -58,6 +59,7 @@ public class LoginController {
                             clients.addElement(client);
                         }
                         new UserController(new UserView(clients), componentFactory);
+                        loginView.dispose();
                     }
                 }
             }
@@ -81,6 +83,7 @@ public class LoginController {
                     JOptionPane.showMessageDialog(loginView.getContentPane(), "Registration successful!");
                 }
             }
+
         }
     }
 }

@@ -102,7 +102,7 @@ public class AccountRepositoryMySQL implements AccountRepository {
     public boolean updateBirthday(Long clientId, Date birthday) throws EntityNotFoundException {
         try {
             PreparedStatement insertStatement = connection
-                    .prepareStatement("UPDATE account SET account.birthday = " + birthday + " WHERE account.client_id = "+ clientId);
+                    .prepareStatement("UPDATE account SET account.birthday = '" + birthday + "' WHERE account.client_id = "+ clientId);
             insertStatement.executeUpdate();
             return true;
         } catch (SQLException e) {

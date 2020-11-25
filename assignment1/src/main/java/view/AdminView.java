@@ -17,6 +17,7 @@ public class AdminView extends JFrame {
     private JButton createUser;
     private JButton updateUsername;
     private JButton updatePassword;
+    private JButton logout;
 
     private JTextField tfUsername;
     private JTextField tfPassword;
@@ -34,6 +35,7 @@ public class AdminView extends JFrame {
         add(createUser);
         add(updateUsername);
         add(updatePassword);
+        add(logout);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
     }
@@ -41,6 +43,7 @@ public class AdminView extends JFrame {
     private void initializeFields(DefaultListModel<User> userList) {
         tfUsername = new JTextField();
         tfPassword = new JTextField();
+        logout = new JButton("Logout");
         generateReport = new JButton("Generate report");
         removeUser = new JButton("Remove selection");
         createUser = new JButton("Create user");
@@ -75,6 +78,10 @@ public class AdminView extends JFrame {
 
     public void setCreateButtonListener(ActionListener createButtonListener) {
         createUser.addActionListener(createButtonListener);
+    }
+
+    public void setLogoutButtonListener(ActionListener logoutButtonListener) {
+        logout.addActionListener(logoutButtonListener);
     }
 
     public JList getList() {
